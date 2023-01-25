@@ -7,7 +7,6 @@ function Player(name) {
 
 Player.prototype.addToTurnTotal = function(dieRoll) {
     this.turnTotal += dieRoll;
-    this.checkWinState();    
 };
 
 Player.prototype.zeroOutTurnTotal = function() {
@@ -25,14 +24,12 @@ Player.prototype.checkValueOfCurrentDieRoll = function(dieRoll) {
         this.zeroOutTurnTotal();
     } else {
         this.addToTurnTotal(dieRoll);
-        this.checkWinState();
     }
 }
 
 Player.prototype.checkWinState = function() {
     if(this.turnTotal + this.gameTotal >= 100) {
         console.log("Congratulations " + this.name + " you won!")
-        console.log(this.turnTotal + " " + this.gameTotal);
         return true;
     }
     return false;
@@ -54,7 +51,8 @@ Game.prototype.addPlayersToGame = function(playerName) {
     this.playersArr.push(playerName);
 }
 
-Game.prototype.passTheTurn = function(currentGame) {  
+Game.prototype.passTheTurn = function() { 
+    this.playersArr[0].addTurnTotalToGameTotal();
     let x = this.playersArr.shift();
     this.playersArr.push(x);
 }
@@ -70,7 +68,6 @@ function gameLoop(passedInGame) {
         if(passedInGame.playersArr[0].checkWinState() === true) {
             passedInGame.gameIsRunning = false;
         } else if (passedInGame.playersArr[0].numberOfTimesRolled >= 4 ) {
-            console.log('hello');
             passedInGame.playersArr[0].numberOfTimesRolled = 0;
             passedInGame.passTheTurn();
         } else if(currentDiceRoll === 1){ // || player chooses to pass turn
