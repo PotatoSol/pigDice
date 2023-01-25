@@ -5,7 +5,8 @@ function Player(name) {
 }
 
 Player.prototype.addToTurnTotal = function(dieRoll) {
-    this.turnTotal += dieRoll;    
+    this.turnTotal += dieRoll;
+    this.checkWinState();    
 };
 
 Player.prototype.zeroOutTurnTotal = function() {
@@ -22,5 +23,11 @@ Player.prototype.checkValueOfCurrentDieRoll = function(dieRoll) {
         this.zeroOutTurnTotal();
     } else {
         this.addToTurnTotal(dieRoll);
+    }
+}
+
+Player.prototype.checkWinState = function() {
+    if(this.turnTotal + this.gameTotal >= 100) {
+        console.log("Congratulations " + this.name + " you won!")
     }
 }

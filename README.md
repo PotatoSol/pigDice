@@ -20,14 +20,14 @@ It will: "Check value of the current die roll and call a method based based on w
 Code: Player.checkValue();
 Expected output: called Player.rolledOne(); or Player.turn-total();
  
-It will: "Pass the turn to the next player"
-Code: player.exitTurn();
-Expected output: call next player to roll.
- 
 It will: "Check if turn-total + game-total >= 100"
 Code: if (Player.turn-total + Player.game-total >=100) {"You won"};
 Expected output: Log the phrase "You won!" and end the game.
- 
+
+It will: "Pass the turn to the next player"
+Code: player.exitTurn();
+Expected output: call next player to roll.
+
 It will: 
 Code: 
 Expected output:
