@@ -4,6 +4,6 @@ function Player(name) {
     this.gameTotal = 0;
 }
 
-Player.prototype.turnTotal = function(dieRoll) {
-    turnTotal += dieRoll;    
+Player.prototype.addToTurnTotal = function(dieRoll) {
+    this.turnTotal += dieRoll;    
 };
