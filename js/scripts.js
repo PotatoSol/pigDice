@@ -7,3 +7,7 @@ function Player(name) {
 Player.prototype.addToTurnTotal = function(dieRoll) {
     this.turnTotal += dieRoll;    
 };
+
+Player.prototype.playerRolledOne = function() {
+    this.turnTotal = 0;
+}
