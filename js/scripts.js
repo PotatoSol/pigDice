@@ -101,18 +101,6 @@ function initalizeGame(){
     return currentGame;
 }
 
-// //////////////////////////////////////  Delte below 
-
-let player1 = new Player('Bob');
-let player2 = new Player('Billy');
-let player3 = new Player('Thirsten');
-let newGame = new Game();
-newGame.addPlayersToGame(player1);
-newGame.addPlayersToGame(player2);
-newGame.addPlayersToGame(player3);
-
-
-
 // UI Logic 
 
 function updateCurrentPlayerUI(inputGame){
