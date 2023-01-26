@@ -24,6 +24,7 @@ Player.prototype.checkValueOfCurrentDieRoll = function(dieRoll) {
     this.numberOfTimesRolled++;
     if(dieRoll === 1) {
         this.zeroOutTurnTotal();
+        this.numberOfTimesRolled = 0;
     } else {
         this.addToTurnTotal(dieRoll);
     }
@@ -35,6 +36,10 @@ Player.prototype.checkWinState = function() {
         return true;
     }
     return false;
+}
+
+Player.prototype.askToRoll = function(passedInGame) { 
+    gameLoop(passedInGame);
 }
 
 function rollDice() {
@@ -57,32 +62,43 @@ Game.prototype.passTheTurn = function() {
     this.playersArr[0].addTurnTotalToGameTotal();
     let x = this.playersArr.shift();
     this.playersArr.push(x);
+    updateCurrentDiceRoll(0);
+    updateCurrentPlayerUI(this);
 }
 
 //////////////////////////////////////////////////////////
 
 function gameLoop(passedInGame) {
-    while (passedInGame.gameIsRunning) {
+    
+
+    if (passedInGame.gameIsRunning) {
         //let currentPlayer = ourGame.playersArr[0];
         let currentDiceRoll = rollDice();
+        updateCurrentDiceRoll(currentDiceRoll);
+        console.log(passedInGame.playersArr[0].name + " just rolled: " + currentDiceRoll); //move out
         passedInGame.playersArr[0].checkValueOfCurrentDieRoll(currentDiceRoll);
-        console.log(passedInGame.playersArr[0].name + " just rolled: " + currentDiceRoll);
+        if(currentDiceRoll === 1){
+            //switch players
+            let x = passedInGame.playersArr.shift();
+            passedInGame.playersArr.push(x);
+            return;
+        }
         if(passedInGame.playersArr[0].checkWinState() === true) {
             passedInGame.gameIsRunning = false;
-        } else if (passedInGame.playersArr[0].numberOfTimesRolled >= 4 ) {
-            passedInGame.playersArr[0].numberOfTimesRolled = 0;
-            passedInGame.passTheTurn();
+            showWinner(passedInGame);
         } else if(currentDiceRoll === 1){ // || player chooses to pass turn
             passedInGame.playersArr[0].numberOfTimesRolled = 0;
             passedInGame.passTheTurn();
         } 
+        updateCurrentPlayerUI(passedInGame);
     }
+    //document.getElementById("rollDiceId").addEventListener("click", passedInGame.playersArr[0].askToRoll());
 }
 
 function initalizeGame(){
     let currentGame = new Game();
     //take in players
-    return currentGame();
+    return currentGame;
 }
 
 // //////////////////////////////////////  Delte below 
@@ -91,39 +107,62 @@ let player1 = new Player('Bob');
 let player2 = new Player('Billy');
 let player3 = new Player('Thirsten');
 let newGame = new Game();
-newGame.addPlayersToGame(player2);
 newGame.addPlayersToGame(player1);
+newGame.addPlayersToGame(player2);
 newGame.addPlayersToGame(player3);
 
 
 
 // UI Logic 
 
-//document.getElementById('playerNames').innerText = Game.playersArr[0].name;
+function updateCurrentPlayerUI(inputGame){
+    document.getElementById("activePlayerName").innerText = "Active Player name: " + inputGame.playersArr[0].name;
+    document.getElementById("turnTotal").innerText = "Current turn total: " + inputGame.playersArr[0].turnTotal;
+    document.getElementById("totalScore").innerText = "Active Player total Score: " + inputGame.playersArr[0].gameTotal;
+}
+
+function updateCurrentDiceRoll(inputRoll){
+    document.getElementById("currentRollId").innerText = "Current roll : " + inputRoll;
+}
+
+function showWinner(inputGame){
+    document.getElementById("winnerId").innerText = "The winner is: " + inputGame.playersArr[0].name;
+}
 
 function takePlayerInput(){
-    console.log('hello');
+    console.log(document.getElementById("playerInputId").value);
     return new Player(document.getElementById("playerInputId").value)
+}
+
+function submitPlayers(inputPlayers, inputGame){
+    inputPlayers.forEach(element => {
+        inputGame.addPlayersToGame(element);
+    });
 }
 
 function handleFormSubmission(inputPlayers){
     //take in players
-    console.log(inputPlayers);
-    console.log('hellohello');
     //initialize the game
-    initalizeGame();
+    let currentGame = initalizeGame();
+    document.getElementById("submitId").setAttribute("class", "hidden");
+    submitPlayers(inputPlayers, currentGame);
+    document.getElementById("rollDiceId").addEventListener("click", function(){
+        currentGame.playersArr[0].askToRoll(currentGame)});
+    document.getElementById("holdScoreId").addEventListener("click", function(){
+        currentGame.passTheTurn()});
+    gameLoop(currentGame);
     //enter game loop
 }
+
 window.addEventListener("load", function(){
     let inputPlayers = [];
     document.getElementById("addPlayerId").addEventListener("click", function(event){
         event.preventDefault();
         inputPlayers.push(takePlayerInput());
+        
     });
     document.getElementById("submitId").addEventListener("click", function(event){
         event.preventDefault();
         handleFormSubmission(inputPlayers);
-
-        
     });
 });
