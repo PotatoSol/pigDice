@@ -4,10 +4,31 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Pig Dice</title>
     <script src="/js/scripts.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    
+    <h1>Pig Dice</h1>
+    <form id = "formId">
+        <label for="playerInput">Add a player: </label>
+        <input for="playerInput" type="text" id="playerInputId" name = "playerInputName"></label>
+        <button type = "addPlayer" id="addPlayerId">Add another Player</button>
+    </form>
+    <br>
+    <button type = "submit" id="submitId">Submit</button>
+    <p id="playerNames">
+        Players:
+    </p>
+    <p id="activePlayerName">
+        Active players is:
+    </p>
+    <button>Roll the dice</button> Dice Roll: 
+    <p id="turnTotal">
+        Turn Total: 
+    </p>
+    <p id="totalScore"> 
+        Score: 
+    </p>
 </body>
 </html>

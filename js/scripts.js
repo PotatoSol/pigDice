@@ -1,3 +1,5 @@
+// Business Logic
+
 function Player(name) {
     this.name = name;
     this.turnTotal = 0;
@@ -77,6 +79,12 @@ function gameLoop(passedInGame) {
     }
 }
 
+function initalizeGame(){
+    let currentGame = new Game();
+    //take in players
+    return currentGame();
+}
+
 // //////////////////////////////////////  Delte below 
 
 let player1 = new Player('Bob');
@@ -86,3 +94,36 @@ let newGame = new Game();
 newGame.addPlayersToGame(player2);
 newGame.addPlayersToGame(player1);
 newGame.addPlayersToGame(player3);
+
+
+
+// UI Logic 
+
+//document.getElementById('playerNames').innerText = Game.playersArr[0].name;
+
+function takePlayerInput(){
+    console.log('hello');
+    return new Player(document.getElementById("playerInputId").value)
+}
+
+function handleFormSubmission(inputPlayers){
+    //take in players
+    console.log(inputPlayers);
+    console.log('hellohello');
+    //initialize the game
+    initalizeGame();
+    //enter game loop
+}
+window.addEventListener("load", function(){
+    let inputPlayers = [];
+    document.getElementById("addPlayerId").addEventListener("click", function(event){
+        event.preventDefault();
+        inputPlayers.push(takePlayerInput());
+    });
+    document.getElementById("submitId").addEventListener("click", function(event){
+        event.preventDefault();
+        handleFormSubmission(inputPlayers);
+
+        
+    });
+});
