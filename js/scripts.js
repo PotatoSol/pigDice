@@ -69,8 +69,6 @@ Game.prototype.passTheTurn = function() {
 //////////////////////////////////////////////////////////
 
 function gameLoop(passedInGame) {
-    
-
     if (passedInGame.gameIsRunning) {
         //let currentPlayer = ourGame.playersArr[0];
         let currentDiceRoll = rollDice();
@@ -91,6 +89,8 @@ function gameLoop(passedInGame) {
             passedInGame.passTheTurn();
         } 
         updateCurrentPlayerUI(passedInGame);
+        displayTotalScoreBoard(passedInGame);
+
     }
     //document.getElementById("rollDiceId").addEventListener("click", passedInGame.playersArr[0].askToRoll());
 }
@@ -119,7 +119,7 @@ function showWinner(inputGame){
 
 function takePlayerInput(){
     console.log(document.getElementById("playerInputId").value);
-    return new Player(document.getElementById("playerInputId").value)
+    return new Player(document.getElementById("playerInputId").value);
 }
 
 function submitPlayers(inputPlayers, inputGame){
@@ -127,6 +127,18 @@ function submitPlayers(inputPlayers, inputGame){
         inputGame.addPlayersToGame(element);
     });
 }
+
+function displayTotalScoreBoard(inputGame) {
+    while(document.getElementById('testP').hasChildNodes()){
+        document.getElementById('testP').removeChild(document.getElementById('testP').firstChild)
+    }
+    inputGame.playersArr.forEach(function(element) {
+        let newliElement = document.createElement('li');
+        newliElement.innerText = (element.name + ': ' + element.gameTotal);
+        document.getElementById('testP').append(newliElement);
+        });
+}
+
 
 function handleFormSubmission(inputPlayers){
     //take in players

@@ -39,3 +39,17 @@ Expected output:
 It will: "Pass the turn to the next player"
 Code: passTurn
 Expected output: acitvePlaer
+
+## Describe Game function
+
+It will: "Create a game object which will contain an array of players"
+Code: new Game();
+Expected output: playersArr[];
+
+It will: "Check the boolean value of whether the game is running"
+Code: new Game();
+Expected output: {gameIsRunning: true;, playersArr[]}
+
+It will: "Add players to the game"
+Code: currentGame.addPlayersToGame(player.Name);
+Expected output: current.playersArr[...]
