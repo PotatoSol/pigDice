@@ -118,8 +118,17 @@ function showWinner(inputGame){
 }
 
 function takePlayerInput(){
-    console.log(document.getElementById("playerInputId").value);
-    return new Player(document.getElementById("playerInputId").value);
+    let playerNameInput = document.getElementById("playerInputId").value;
+    console.log(playerNameInput);
+    let noNameErrorMessage = document.getElementById('noNameMessage');
+    playerNameInput.trim();
+    if(playerNameInput === "") {
+        console.log('no player name entered');
+        document.getElementById('noNameMessage').setAttribute('class', 'angry');
+        console.log('wow');
+    }
+    noNameErrorMessage.setAttribute('class', 'hidden')
+    return new Player(playerNameInput);
 }
 
 function submitPlayers(inputPlayers, inputGame){
@@ -138,7 +147,6 @@ function displayTotalScoreBoard(inputGame) {
         document.getElementById('testP').append(newliElement);
         });
 }
-
 
 function handleFormSubmission(inputPlayers){
     //take in players
