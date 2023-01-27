@@ -13,12 +13,12 @@ Player.prototype.addToTurnTotal = function(dieRoll) {
 
 Player.prototype.zeroOutTurnTotal = function() {
     this.turnTotal = 0;
-}
+};
 
 Player.prototype.addTurnTotalToGameTotal = function() {
     this.gameTotal += this.turnTotal;
     this.zeroOutTurnTotal();
-}
+};
 
 Player.prototype.checkValueOfCurrentDieRoll = function(dieRoll) {
     this.numberOfTimesRolled++;
@@ -28,23 +28,23 @@ Player.prototype.checkValueOfCurrentDieRoll = function(dieRoll) {
     } else {
         this.addToTurnTotal(dieRoll);
     }
-}
+};
 
 Player.prototype.checkWinState = function() {
-    if(this.turnTotal + this.gameTotal >= 100) {
-        console.log("Congratulations " + this.name + " you won!")
+    if(this.turnTotal + this.gameTotal >= 10) {
+        console.log("Congratulations " + this.name + " you won!");
         return true;
     }
     return false;
-}
+};
 
 Player.prototype.askToRoll = function(passedInGame) { 
     gameLoop(passedInGame);
-}
+};
 
 function rollDice() {
     let rollTheDie = Math.floor(Math.random()*6) + 1;
-    return rollTheDie
+    return rollTheDie;
 }
 
 /////////////////////////////////////////////////////////
@@ -56,7 +56,7 @@ function Game() {
 
 Game.prototype.addPlayersToGame = function(playerName) {
     this.playersArr.push(playerName);
-}
+};
 
 Game.prototype.passTheTurn = function() { 
     this.playersArr[0].addTurnTotalToGameTotal();
@@ -64,7 +64,8 @@ Game.prototype.passTheTurn = function() {
     this.playersArr.push(x);
     updateCurrentDiceRoll(0);
     updateCurrentPlayerUI(this);
-}
+    displayTotalScoreBoard(this);
+};
 
 //////////////////////////////////////////////////////////
 
@@ -89,7 +90,7 @@ function gameLoop(passedInGame) {
             passedInGame.passTheTurn();
         } 
         updateCurrentPlayerUI(passedInGame);
-        displayTotalScoreBoard(passedInGame);
+        // displayTotalScoreBoard(passedInGame);
 
     }
     //document.getElementById("rollDiceId").addEventListener("click", passedInGame.playersArr[0].askToRoll());
@@ -127,7 +128,7 @@ function takePlayerInput(){
         document.getElementById('noNameMessage').setAttribute('class', 'angry');
         console.log('wow');
     }
-    noNameErrorMessage.setAttribute('class', 'hidden')
+    noNameErrorMessage.setAttribute('class', 'hidden');
     return new Player(playerNameInput);
 }
 
@@ -139,7 +140,7 @@ function submitPlayers(inputPlayers, inputGame){
 
 function displayTotalScoreBoard(inputGame) {
     while(document.getElementById('testP').hasChildNodes()){
-        document.getElementById('testP').removeChild(document.getElementById('testP').firstChild)
+        document.getElementById('testP').removeChild(document.getElementById('testP').firstChild);
     }
     inputGame.playersArr.forEach(function(element) {
         let newliElement = document.createElement('li');
@@ -155,9 +156,11 @@ function handleFormSubmission(inputPlayers){
     document.getElementById("submitId").setAttribute("class", "hidden");
     submitPlayers(inputPlayers, currentGame);
     document.getElementById("rollDiceId").addEventListener("click", function(){
-        currentGame.playersArr[0].askToRoll(currentGame)});
+        currentGame.playersArr[0].askToRoll(currentGame);
+    }                                                          );
     document.getElementById("holdScoreId").addEventListener("click", function(){
-        currentGame.passTheTurn()});
+        currentGame.passTheTurn();
+    });
     gameLoop(currentGame);
     //enter game loop
 }
@@ -174,3 +177,11 @@ window.addEventListener("load", function(){
         handleFormSubmission(inputPlayers);
     });
 });
+
+
+////////////////////////////////////////////////
+// use with showWinner() to display message to page?
+//   
+// let winnerDiv = document.getElementById('winnderDiv');
+// document.getElementById('mainPageDiv').setAttribute('class', 'hidden');
+// winnerDiv.removeAttribute('class');

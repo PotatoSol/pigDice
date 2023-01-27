@@ -10,38 +10,43 @@
 </head>
 <body>
     <h1>Pig Dice</h1>
-    <form id = "formId">
-        <label for="playerInput">Add a player: </label>
-        <input for="playerInput" type="text" id="playerInputId" name = "playerInputName"> </label><div id="noNameMessage" class="hidden">Please enter a player name.</div>
-        <button type = "addPlayer" id="addPlayerId">Add another Player</button>
-    </form>
-    <br>
-    <button type = "submit" id="submitId">Submit</button>
-    <p id="playerNames">
-        Players:
-    </p>
-    <p id="activePlayerName">
-        Active players is:
-    </p>
-    <p id = "currentRollId">
-        Dice Roll:
-    </p><br><br>
-    <button type = "rollDice" id = "rollDiceId">Roll the dice</button><br><br>
-    <button type = "holdScore" id = "holdScoreId">Hold score</button>
-    <p id="turnTotal">
-        Turn Total: 
-    </p>
-    <p id="totalScore"> 
-        Score: 
-    </p>
-    <p id = "winnerId"></p>
     <div>
-        <p>Scoreboard:</p>
-        <p id = "scoreBoardId">
-        <br>
-        <br>
-        </p>
-        <p id="testP"></p>
-</div>
+        <div id="mainPageDiv" >
+            <div>
+                <form id = "formId">
+                <label for="playerInput">Add a player: </label>
+                <input for="playerInput" type="text" id="playerInputId" name = "playerInputName"> </label><div id="noNameMessage" class="hidden">Please enter a player name.</div>
+                <button type = "addPlayer" id="addPlayerId">Add another Player</button>
+                </form>
+            </div>
+            <br>
+            <button type = "submit" id="submitId">Submit</button>
+            <p id="playerNames">
+                Players:
+            </p>
+            <p id="activePlayerName">
+                Active players is:
+            </p>
+            <p id = "currentRollId">
+                Dice Roll:
+            </p><br><br>
+            <button type = "rollDice" id = "rollDiceId">Roll the dice</button><br><br>
+            <button type = "holdScore" id = "holdScoreId">Hold score</button>
+            <p id="turnTotal">
+                Turn Total: 
+            </p>
+            <p id="totalScore"> 
+                Score: 
+            </p>
+            <p id = "winnerId"></p>
+            <div>
+                <p>Scoreboard:</p>
+                <p id = "scoreBoardId"></p>
+                <p id="testP"></p>
+        </div>
+    </div>
+    <div id="winnderDiv" class="hidden">
+        <p id="winnerMessage" >someText</p>
+    </div>
 </body>
 </html>
